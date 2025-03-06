@@ -2,12 +2,13 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
 const userSchema = new mongoose.Schema({
+   
     name: String,
     role: { type: String, enum: ["admin", "developpeur"] },
     address: String,
     motDePasse: String, // Champ du mot de passe crypté
     image: String,
-    tachesEffectuees: [{ type: mongoose.Schema.Types.ObjectId, ref: "Task" }],
+    tachesEffectuees: [{ type: mongoose.Schema.Types.ObjectId, ref: "tache" }],
 });
 
 // Avant de sauvegarder un utilisateur, crypter le mot de passe
@@ -17,5 +18,5 @@ userSchema.pre("save", async function (next) {
     next();
 });
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model("Users", userSchema);
 module.exports = User;
